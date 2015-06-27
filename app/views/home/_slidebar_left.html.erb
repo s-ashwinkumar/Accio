@@ -1,0 +1,20 @@
+<div class="sb-slidebar sb-left sb-style-overlay sb-width-custom" style="opacity:0.8" data-sb-width="100%">
+  <div class="container" style="width:100vw;height:100vh">
+    <div class="row" style="color:white"><center>
+      <div id="accio_logo_div">
+        <%= image_tag "accio_logo.gif", style: "height: 25em;padding-top:2em", id: 'accio_logo' %>
+      </div>
+    </center></div>
+    <div class="row images_holder" style="padding-top:15em;width:100%">
+      <div class="col-md-4 col-xs-12">
+        <%= image_tag "the_expert.png", style: "height:45%" %><a href="#" onclick="$('#loginModal').modal('show');"><%=image_tag "producer.png", style: "width:45%", id: "producer_image" %></a>
+      </div>
+      <div class="col-md-4 col-xs-12 col-md-offset-4">
+        <a href="#" onclick="consumerToggle();toggleFullScreen();$('#services_modal').modal('show');"><%= image_tag "consumer.png", style: "width:45%", id: "consumer_image" %></a><%= image_tag "seeker.png", style: "height:45%" %>
+      </div>
+    </div>
+    <div class="row" style="position:absolute;bottom:1vh;width:100%">
+      <center><a href="#" onclick="$('#adminLoginModal').modal('show');"><%= image_tag "rajni.gif", style: "width:5%" %></a><br/><%= image_tag "about_us_text.png", style: "width:10%" %></center>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="modal fade col-md-offset-3 col-md-6" id="services_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Which service are you looking for ?</h4><br/>
+        <div class='form-group'>
+          <%= select_tag "service", options_from_collection_for_select(@services, "id", "name") , class: 'form-control center' %>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="searchForService($('#service').val());toggleRightMenu();">Search</button>
+      </div>
+    </div>
+  </div>
+</div>

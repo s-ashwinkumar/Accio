@@ -1,0 +1,53 @@
+<% if flash[:error].present? %> 
+  <script type="text/javascript">
+    alert("<%=flash[:error] %>");
+  </script>
+<% end %>
+<%= render :partial => 'background_map' %>
+<%= render :partial => 'slidebar_left' %>
+<%= render :partial => 'slidebar_right' %>
+<%= render :partial => 'services_modal' %>
+<%= render :partial => 'producer_signin' %>
+<%= render :partial => 'admin_signin' %>
+<script>
+var requestor_marker;
+handler = Gmaps.build('Google',
+  {
+    markers:{
+      clusterer: {
+      gridSize: 20,
+        maxZoom: 10
+      }
+    }
+  });
+handler.buildMap({ provider: {streetViewControl: false}, internal: {id: 'map'}}, function(){
+  if(navigator.geolocation.getCurrentPosition(displayOnMap)){
+
+  }
+  else{
+    var marker = handler.addMarker({lat: 20.593684, lng: 78.962880});
+    handler.map.centerOn(marker);
+    handler.map.serviceObject.setZoom(5);
+    handler.removeMarker(marker);
+    handler.fitMapToBounds();
+  }
+  google.maps.event.addListener(handler.getMap(), "click", function(event) {
+      if($('#help_me_accordion').attr("aria-expanded")=="true") {
+        if(window.requestor_marker!==undefined) {
+          handler.removeMarker(window.requestor_marker);
+        }
+        var pos_lat = event.latLng.lat();
+        var pos_lng = event.latLng.lng();
+        window.requestor_marker = handler.addMarker({
+          lat: pos_lat,
+          lng: pos_lng,
+          picture: {
+            url: "assets/marker_green.png",
+            width:  40,
+            height: 66
+          },
+        });
+      }
+    });
+});
+</script>

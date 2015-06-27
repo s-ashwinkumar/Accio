@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  person1: 1
+  person2: 1
+  conversation_id: MyString
+
+two:
+  person1: 1
+  person2: 1
+  conversation_id: MyString

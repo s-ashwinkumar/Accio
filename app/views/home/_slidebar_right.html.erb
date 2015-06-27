@@ -1,0 +1,75 @@
+<div class="sb-slidebar sb-right sb-style-overlay sb-width-thick">
+  <p><center><%= image_tag "accio_logo.gif", style: "height:8em" %></center></p>
+  <div class="panel panel-info">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          Summon me a ...
+        </h4>
+      </div>
+      <div class="panel-body">
+        <%= select_tag "service", options_from_collection_for_select(@services, "id", "name"), class: 'form-control center', onchange: 'searchForService(this.value);' %>
+      </div>
+    </div>
+
+    <div class="panel-group" id="accordion">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#show_more_accordion">
+            More Details...
+          </a>
+        </h4>
+      </div>
+      <div id="show_more_accordion" class="panel-collapse collapse in">
+        <div id="show_more_content" class="panel-body">
+          <div id="provider_details">
+            <ol>
+              <li>Select the help that you want to summon</li>
+              <li>Move around the map, and click on any of the markers to see info</li>
+              <li>Use the Show More link to get more information</li>
+              <li>Too lazy to move around the map? Check out the help me panel below</li>
+              <br/><br/>
+              <strong><h4>Say ACCIO !!!</h4><strong>
+            </ol>
+          </div>
+          <div id="request_callback_div" style="display:none">
+            <div class ='form-group'  >
+              <strong>Help us help you...</strong><br/>
+              <%= render partial: "requestor_details_form" %>
+              <%= button_tag('Request Callback', onclick:"requestCallback();", class: 'btn btn-primary btn-sm btn-block') %>
+            </div>
+            <a href='#' class='pull-right' onclick='closeRequestCallbackForm();'>Go Back</a>
+          </div>
+          <div id="please_wait" class="panel-body" style="display:none">
+            Please wait while we process your request !!!
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#help_me_accordion">
+            Help me...
+          </a>
+        </h4>
+      </div>
+      <div id="help_me_accordion" class="panel-collapse collapse">
+        <div id="help_me_content" class="panel-body">
+          <strong><span class='notice'>Enable location settings in your browser to help us track your location</span></strong><br/>
+          <strong><span class='notice'>Click on map to select location where help is needed</span></strong><br/>
+          <%= render partial: "help_requestor_details_form" %>
+          <%= button_tag('Help Me', onclick:"helpMe();", class: 'btn btn-primary btn-sm btn-block') %>
+        </div>
+        <div id="help_callback_div" class="panel-body" style="display:none">
+            <a href='#' class='pull-right' onclick='closeHelpCallbackDiv();'>Go Back</a>
+        </div>
+        <div id="help_please_wait" class="panel-body" style="display:none">
+            Please wait while we process your request !!!
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="right_menu_close_button" class="float-left glyphicon glyphicon-circle-arrow-right" style="font-size:xx-large; position:absolute;right:2vw;top:90vh" onclick="toggleRightMenu()" >
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<script>
+$(document).ready(function(){
+  $('#signup_form').hide();
+  $('#signin_link').hide();
+});
+</script>
+<div id="loginModal" class="modal fade"  role="dialog" aria-labelledby="Signin" aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1" style="z-index:99999">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 id="form_type_text" class="text-center" style="color:dodgerblue">Signin</h4>
+      </div>
+      <div class="modal-body">
+        <div id="signin_form" class="row">
+          <%= form_for(:user, :url => session_path(:user), :html => {:class => 'form-group col-md-offset-2 col-md-8'}) do |f| %>
+            <%= f.text_field :email, :class => 'form-control', :placeholder => "Enter your email" %>
+            <br/>
+            <%= f.password_field :password, :class => 'form-control', :placeholder => "Enter your password" %>
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+            <br/>
+            <%= f.submit 'Sign in', :class => 'btn btn-primary col-md-offset-4 col-md-4' %>
+          <% end %>
+        </div>
+        <div id="signup_form" class="row">
+          <%= form_for(:user, url: registration_path(:user), :html => {:class => 'form-group col-md-offset-2 col-md-8'}) do |f| %>
+            <div class="field">
+              <%= f.text_field :name, :class => 'form-control', :placeholder => "Enter your Full Name" %><br/>
+            </div>
+            <div class="field">
+              <%= f.email_field :email, autofocus: true, :class => 'form-control', :placeholder => 'Enter your email' %><br/>
+            </div>
+
+            <div class="field">
+              <% if @validatable %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %>
+              <%= f.password_field :password, autocomplete: "off", :class => 'form-control', :placeholder => 'Enter a password' %><br/>
+            </div>
+
+            <div class="field">
+              <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control', :placeholder => 'Confirm your password' %>
+            </div>
+            <br/>
+            <div class="actions">
+              <%= f.submit "Sign up", :class => 'btn btn-primary col-md-offset-4 col-md-4' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= link_to "Forgot your password?", new_password_path(:user), :style => 'position:absolute;left:1vw; bottom:1vh;' %>
+        <%= link_to "New user? Signup", "#", :id => 'signup_link', :style => 'position:absolute;right:1vw; bottom:1vh;', :onclick => '$("#signin_form").hide(1000);$("#signup_form").show(1000);$("#form_type_text").text("Signup");$(this).hide();$("#signin_link").show()' %>
+        <%= link_to "Have an account? Signin", "#", :id => "signin_link", :style => 'position:absolute;right:1vw; bottom:1vh;', :onclick => '$("#signin_form").show(1000);$("#signup_form").hide(1000);$("#form_type_text").text("Signin");$(this).hide();$("#signup_link").show()' %>
+      </div>
+  </div>
+  </div>
+</div>

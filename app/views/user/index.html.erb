@@ -1,0 +1,159 @@
+  <%= form_for(@user, url: "user/#{@user.id}", html: { method: 'PUT', class: 'form-horizontal' }) do |f| %>
+
+    <div class="col-md-6">
+
+      <div class="form-group">
+        <%= f.label :avatar, class: 'col-sm-2 control-label'  %>
+        <div class="col-sm-6">
+          <div class="round-image-200"><%= image_tag(current_user.avatar.url(:medium)) %></div>
+        </div>
+        <br/>
+        <%= f.file_field :avatar, class: "btn btn-file" %>
+      </div>
+
+
+      <div class="form-group">
+        <%= f.label :name, class: 'col-sm-2 control-label'  %>
+        <div class="col-sm-6">
+            <%= f.text_field :name, autofocus: true, class: 'form-control'  %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, class: 'col-sm-2 control-label'  %>
+        <div class="col-sm-6">
+          <%= f.email_field :email, class: 'form-control'  %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :phone, class: 'col-sm-2 control-label'  %>
+        <div class="col-sm-6">
+          <%= f.text_field :phone, class: 'form-control', placeholder: '10 digits' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :mobile, class: 'col-sm-2 control-label'  %>
+        <div class="col-sm-6">
+          <%= f.text_field :mobile, class: 'form-control', placeholder: '10 digits' %>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :services, class: 'col-sm-2 control-label'  %>
+        <div class="col-sm-6">
+          <%= f.collection_select :service_ids, services, :id, :name, {}, { multiple: true, class: 'form-control' } %>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-6" style="border-left:1px solid grey">
+
+      <div class="form-group">
+        <%= f.label :location, class: 'col-sm-2 control-label'  %>
+        <div class="col-sm-6">
+          <div id="location_pick_map" style="text-align:right; width: 35vw; height:40vh; box-shadow: 0px 0px 2vh 1vh rgba(0, 0, 0, 0.3);">
+          </div>
+        </div>
+        <%= f.hidden_field :latitude %>
+        <%= f.hidden_field :longitude %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :address_line_1, class: 'col-sm-2 control-label'  %>
+        <div class="col-sm-6">
+          <%= f.text_field :address1, class: 'form-control'  %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :address_line_2, class: 'col-sm-2 control-label'  %>
+        <div class="col-sm-6">
+          <%= f.text_field :address2, class: 'form-control'  %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :city, class: 'col-sm-2 control-label'  %>
+        <div class="col-sm-6">
+          <%= f.text_field :city, class: 'form-control'  %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :state, class: 'col-sm-2 control-label'  %>
+        <div class="col-sm-6">
+          <%= f.text_field :state, class: 'form-control'  %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :zipcode, class: 'col-sm-2 control-label'  %>
+        <div class="col-sm-6">
+          <%= f.text_field :zipcode, class: 'form-control'  %>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <div class="form-group">
+      <div class="col-sm-offset-1 col-sm-6">
+        <%= f.submit "Update  Profile", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <%end%>
+<script type="text/javascript">
+  $('input[type=file]').bootstrapFileInput();
+  var lat,lng;
+    if(navigator.geolocation.getCurrentPosition(updateLatLng)){
+
+    }
+    else{
+      lat = 20.593684;
+      lng = 78.962880;
+    }
+    function updateLatLng(position){
+      lat = position.coords.latitude;
+      lng = position.coords.longitude;
+    }
+
+    var loc_handler = Gmaps.build('Google');
+    loc_handler.buildMap({ provider: { }, internal: {id: 'location_pick_map'}}, function(){
+    var json_data = [
+      {
+        id:  1,
+        lat: lat,
+        lng: lng
+      }
+    ];
+    var markers = loc_handler.addMarkers(json_data, { draggable: true});
+    loc_handler.map.centerOn(markers[0]);
+    loc_handler.map.serviceObject.setZoom(15);
+    google.maps.event.addListener(markers[0].getServiceObject(), "dragend", function(event) {
+      var lat = event.latLng.lat();
+      var lng = event.latLng.lng();
+      $('#provider_latitude').val(lat);
+      $('#provider_longitude').val(lng);
+      autofillAddressFields(lat,lng)
+    });
+  });
+
+  function autofillAddressFields(lat, lng){
+    $.ajax({
+      url: "http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng,
+      success: function(data){
+        details = data["results"][0]["address_components"].reverse()
+        if(details[0]["types"] == "postal_code"){
+          $('#provider_zipcode').val(details[0]["long_name"]);
+          $('#provider_state').val(details[2]["long_name"]);
+          $('#provider_city').val(details[3]["long_name"]);
+        }
+      }
+    })
+  }
+</script>
+

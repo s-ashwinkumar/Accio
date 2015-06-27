@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Accio</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <%= image_tag "accio_logo_black.gif", style: "height:2em" %>
+      </a>
+    </div>
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class=<%= "active" if params[:action] == "show" %>> <%= link_to("Profile",user_path) %> </li>
+        <li class=<%= "active" if params[:action] == "notifications" %>> <%= link_to("Notifications",notifications_path) %></li>
+      </ul>
+      <%= link_to "Signout", destroy_user_session_path, :class => "navbar-text navbar-right btn btn-xs btn-primary", :style => "color:white;margin-right:0.1vw", :method => "DELETE"  %>
+      <p class="navbar-text navbar-right" style="border-right: 1px solid grey">Welcome <%= current_user.name %>&nbsp;&nbsp;</p>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</head>
+<body style="padding-top:10vh">
+<% if flash[:error] %>
+  <div class="alert alert-danger alert-error col-md-offset-2 col-md-8">
+    <a href="#" class="close" onclick="closeAlert(this)">&times;</a>
+    <strong>Error!</strong> <%= flash[:error] %>
+  </div>
+<%end%>
+<% if flash[:success] %>
+  <div class="alert alert-success col-md-offset-2 col-md-8">
+    <a href="#" class="close" onclick="closeAlert(this)">&times;</a>
+    <%= flash[:success] %>
+  </div>
+<%end%>
+<%= yield %>
+
+<%= render '/chat_footer' if session[:user_id] %>
+</body>
+<script>
+function closeAlert(el){
+  $(el).parent().slideUp();
+}
+</script>
+</html>
