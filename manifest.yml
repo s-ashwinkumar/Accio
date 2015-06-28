@@ -5,4 +5,5 @@ applications:
   path: .
   domain: eu-gb.mybluemix.net
   instances: 1
+  command: "rake db:migrate && rackup config.ru -E production -p $PORT"
   memory: 256M

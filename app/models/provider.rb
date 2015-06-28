@@ -9,12 +9,15 @@ class Provider < User
       field :active
       field :verified
       field :email
+      field :zipcode
     end
     edit do
       field :name
       field :email
       field :active
       field :verified
+      field :zipcode
+      field :password
     end
   end
 

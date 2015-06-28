@@ -15,6 +15,29 @@
 //= require gmaps/google
 //= require underscore-min
 //= require_tree .
+function searchData(){
+  $.ajax({
+      url: '/search',
+      data:{
+        text: jQuery("#search_text").val()
+      },
+      success: function(data){
+        jQuery("#result_set").html(data);
+        toggleSearch();
+      },
+      failure: function(data){
+        alert("Something went wrong Please try again later!!!");
+      }
+    });
+
+}
+
+function toggleSearch(){
+    jQuery("#search_form").fadeToggle();
+    jQuery("#result_set").fadeToggle();
+    jQuery("#search_div").fadeToggle();
+    jQuery("#reset_div").fadeToggle();
+}
 function deactivateAlert(elem){
   var elemID = jQuery(elem).attr("id");
   if(elemID == -1){

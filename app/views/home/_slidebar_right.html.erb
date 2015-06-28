@@ -27,8 +27,8 @@
               <li>Select the help that you want to summon</li>
               <li>Move around the map, and click on any of the markers to see info</li>
               <li>Use the Show More link to get more information</li>
-              <li>Too lazy to move around the map? Check out the help me panel below</li>
-              <br/><br/>
+              <li>Check out the help me panel below</li>
+              </br>
               <strong><h4>Say ACCIO !!!</h4><strong>
             </ol>
           </div>
@@ -70,6 +70,17 @@
       </div>
     </div>
   </div>
+
   <div id="right_menu_close_button" class="float-left glyphicon glyphicon-circle-arrow-right" style="font-size:xx-large; position:absolute;right:2vw;top:90vh" onclick="toggleRightMenu()" >
+  </div>
+   <span class="glyphicon glyphicon-hand-up" style="font-size:xx-large;" aria-hidden="true" onclick="$('#searchFeatureModal').modal('show');"></span>
+</div>
+
+
+<div id="searchFeatureModal" class="modal fade"  role="dialog" aria-labelledby="searchFeatureModal" aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1" style="z-index:99999">
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <%= render :partial => "search_page" %>
+  </div>
   </div>
 </div>

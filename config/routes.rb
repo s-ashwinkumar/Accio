@@ -8,6 +8,7 @@ Accio::Application.routes.draw do
 
   root :to => "home#index"
   match '/user' => 'user#index', :as => "user"
+  match '/search' => "application#search", :as => "search"
   get 'home/get_users'
   get 'home/user_data'
   get 'home/request_callback'

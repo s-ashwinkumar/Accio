@@ -1,14 +1,14 @@
 #Specify Redis Server configuration here
 redis:
   development:
-    host: localhost
-    port: 6379
+    host: 159.8.128.94
+    port: 5198
   test:
-    host: localhost
-    port: 6379
+    host: 159.8.128.94
+    port: 5198
   production:
-    host: localhost
-    port: 6379
+    host: 159.8.128.94
+    port: 5198
 
 #Specify the Model to be used by Chatter, defaults to User
 chatter:

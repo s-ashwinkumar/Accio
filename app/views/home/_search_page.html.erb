@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 id="form_text" class="text-center" style="color:dodgerblue">Summon me !</h4>
+</div>
+<div class="modal-body">	
+	<div id="search_form">
+		Lazy of exploring the website ? Just say what you want and we will get it for 
+		you. We will provide you information of anyone exactly at your location. Try a line like : 'I need an electrician near anna nagar Chennai' OR use a pincode with `@` for better accuracy (shown as placeholder) !
+		<div class="form-group" style="padding-top:3vh;">
+	    <%= text_field_tag :search_text, nil,{class: "form-control", :placeholder => "Ex : I want a plumber @600048"} %>
+	  </div>
+	</div>
+	<div id="result_set" style="display:none;">
+	</div>
+</div>
+<div class="modal-footer">
+	<div id="search_div">
+	<%= button_tag('Say Accio!', onclick:"searchData();",:id=>"search_button", class: 'btn btn-primary btn-sm') %>
+	</div>
+	<div id="reset_div" style="display:none;">
+		<%= button_tag('Reset', onclick:"toggleSearch();",:id=>"reset_button", class: 'btn btn-primary btn-sm') %>
+	</div>
+</div>

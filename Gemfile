@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
+ruby '1.9.3'
 
 gem 'rails', '3.2.17'
-
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
+# gem 'ibm_db'
 gem 'rails_admin'
 # Gems used only for assets and not required
 # in production environments by default.
@@ -20,7 +21,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-
+gem 'alchemy-api-rb', :require => 'alchemy_api'
 gem 'gmaps4rails'
 gem 'devise'
 gem 'paperclip', "3.4.2"
@@ -40,4 +41,5 @@ gem 'chatter', :git => 'https://github.com/venkatramanka/chatter.git'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'debugger'
+gem 'debugger'
+gem 'seed_dump'
